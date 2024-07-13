@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.syq.code.mapper.UserMapper">
+    <select id="FindByAll" resultMap="userResultMap">
+        select * from t_user;
+    </select>
+
+    <resultMap id="userResultMap" type="com.syq.code.entity.User">
+        <result column="f_id" property="id"></result>
+        <result column="f_username" property="username"></result>
+        <result column="f_age" property="age"></result>
+        <result column="f_phonenumber" property="phonenumber"></result>
+        <result column="f_gender" property="gender"></result>
+        <result column="f_emailaddress" property="emailaddress"></result>
+        <result column="f_password" property="password"></result>
+    </resultMap>
+</mapper>
