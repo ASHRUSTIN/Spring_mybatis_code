@@ -3,9 +3,40 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.syq.code.mapper.UserMapper">
     <select id="FindByAll" resultMap="userResultMap">
-        select * from t_user;
+        select * from t_user
+        <where>
+            <if test="username !=null and username!=''">
+                and f_username=#{username}
+            </if>
+            <if test="age !=null">
+                and  f_age= #{age}
+            </if>
+            <if test="phonenumber !=null and phonenumber!=''">
+                and f_phonenumber=#{phonenumber}
+            </if>
+            <if test="gender !=null">
+                and f_gender=#{gender}
+            </if>
+            <if test="emailaddress !=null and emailaddress!=''">
+                and f_emailaddress=#{emailaddress}
+            </if>
+            <if test="password !=null">
+                and f_password=#{password}
+            </if>
+        </where>
     </select>
-
+    <delete id="Cancel">
+        delete from t_user where f_username=#{username}
+    </delete>
+    <insert id="Register">
+        insert into t_user (f_username, f_age, f_phonenumber, f_gender, f_emailaddress, f_password) VALUES (#{username},#{age},#{phonenumber},#{gender},#{emailaddress},#{emailaddress});
+    </insert>
+    <select id="Login" resultMap="userResultMap">
+        select * from t_user where f_username = #{username}
+    </select>
+    <select id="FindByUsername" resultMap="userResultMap">
+        select f_username from t_user where f_username = #{username}
+    </select>
     <resultMap id="userResultMap" type="com.syq.code.entity.User">
         <result column="f_id" property="id"></result>
         <result column="f_username" property="username"></result>
