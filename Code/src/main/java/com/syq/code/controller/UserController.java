@@ -11,25 +11,33 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
-    @GetMapping("/FindByAll")
-    public List<User> FindByAll(String password, String username, Integer age, Integer gender, String phonenumber, String emailaddress){
-        return userService.FindByAll(password,username,age,gender,phonenumber,emailaddress);
+    @GetMapping("/FindByLogin")
+    public User FindByLogin(String username,String password){
+        return userService.FindByLogin(username,password);
     }
     @GetMapping("/Login")
-    public User Login(String username,String password){
+    public boolean Login(String username,String password){
         return userService.Login(username,password);
     }
     @GetMapping("/FindByUsername")
     public User FindByUsername(String username){
         return userService.FindByUsername(username);
     }
-    @GetMapping("/Register")
-    public boolean Register(String password, String username, Integer age, Integer gender, String phonenumber, String emailaddress){
-        return userService.Register(password,username,age,gender,phonenumber,emailaddress);
-    }
     @GetMapping("/Cancel")
     public boolean Cancel(String username){
         return userService.Cancel(username);
+    }
+    @GetMapping("/Register")
+    public boolean Register(User user){
+        return userService.Register(user);
+    }
+    @GetMapping("/FindByAll")
+    public List<User> FindByAll(User user){
+        return userService.FindByAll(user);
+    }
+    @GetMapping("/UpdateByUsername")
+    public boolean UpdateByUsername(User user,String username_old) {
+        return userService.UpdateByUsername(user,username_old);
     }
 }
 

@@ -31,12 +31,45 @@
     <insert id="Register">
         insert into t_user (f_username, f_age, f_phonenumber, f_gender, f_emailaddress, f_password) VALUES (#{username},#{age},#{phonenumber},#{gender},#{emailaddress},#{emailaddress});
     </insert>
-    <select id="Login" resultMap="userResultMap">
-        select * from t_user where f_username = #{username}
-    </select>
     <select id="FindByUsername" resultMap="userResultMap">
-        select f_username from t_user where f_username = #{username}
+        <if test="username!=null and username!=''">
+            select f_username from t_user where f_username = #{username}
+        </if>
     </select>
+    <select id="FindByLogin" resultMap="userResultMap">
+        <if test="username!=null and username!='' and password!=null and password!=''">
+            select f_username,f_password from t_user where f_username = #{username} and f_password=#{password}
+        </if>
+    </select>
+    <update id="UpdateByUsername">
+        update t_user
+            <set>
+                <if test="user.username !=null and user.username!=''">
+                    f_username=#{user.username},
+                </if>
+                <if test="user.password !=null and user.password !=''">
+                    f_password=#{user.password},
+                </if>
+                <if test="user.age !=null">
+                    f_age=#{user1.age},
+                </if>
+                <if test="user.gender !=null">
+                    f_gender=#{user.gender},
+                </if>
+                <if test="user.phonenumber !=null and user.phonenumber !=''">
+                    f_phonenumber=#{user1.phonenumber},
+                </if>
+                <if test="user.emailaddress !=null and user.emailaddress !=''">
+                    f_emailaddress=#{user.emailaddress},
+                </if>
+             </set>
+            <where>
+                <if test="username_old!=null and username_old!=''">
+                    and f_username=#{username_old}
+                </if>
+            </where>
+    </update>
+
     <resultMap id="userResultMap" type="com.syq.code.entity.User">
         <result column="f_id" property="id"></result>
         <result column="f_username" property="username"></result>
