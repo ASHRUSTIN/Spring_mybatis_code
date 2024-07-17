@@ -6,9 +6,11 @@ import java.util.List;
 
 @Mapper
 public interface UserMapper{
-    List<User> FindByAll(String password, String username, Integer age, Integer gender, String phonenumber, String emailaddress);
+    boolean UpdateByUsername(User user, String username_old);
     User FindByUsername(String username);
-    User Login(String username, String password);
-    boolean Register(String password, String username, Integer age, Integer gender, String phonenumber, String emailaddress);
     boolean Cancel(String username);
+    boolean Register(User user);
+    List<User> FindByAll(User user);
+    boolean Login(String username,String password);
+    User FindByLogin(String username,String password);
 }
