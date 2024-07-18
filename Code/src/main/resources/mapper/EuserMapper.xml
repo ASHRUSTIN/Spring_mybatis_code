@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.syq.code.mapper.EuserMapper">
+    <select id="FindByAllEuser" resultMap="EuserMapper">
+        select * from t_euser
+        <where>
+            <if test="eusername !=null and eusername!=''">
+                and f_username=#{eusername}
+            </if>
+            <if test="epermission !=null and epermission!=''">
+                and f_permission=#{epermission}
+            </if>
+        </where>
+    </select>
+    <update id="UpdataByEusername">
+        update t_euser
+        <set>
+            <if test="epermission !=null and epermission !=''">
+                f_permission=#{epermission},
+            </if>
+        </set>
+        <where>
+            <if test="eusername!=null and eusername!=''">
+                and f_username=#{eusername}
+            </if>
+        </where>
+    </update>
+    <select id="FindByEusername" resultMap="EuserMapper">
+        <if test="eusername!=null and eusername!=''">
+            select f_username from t_user where f_username = #{eusername}
+        </if>
+    </select>
+    <resultMap id="EuserMapper" type="com.syq.code.entity.Euser">
+        <result column="f_id" property="id"></result>
+        <result column="f_username" property="eusername"></result>
+        <result column="f_permission" property="epermission"></result>
+    </resultMap>
+</mapper>

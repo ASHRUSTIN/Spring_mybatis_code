@@ -17,5 +17,6 @@ public class User {
     private Integer gender;
     private String phonenumber;
     private String emailaddress;
+    private String username_old;
 }
 
