@@ -55,6 +55,7 @@ public class UserServiceImpl implements UserService {
             if (userMapper.FindByUsername(username_old) != null) {
                 System.out.println("已找到用户");
                 System.out.println(userMapper.FindByUsername(username_old).getUsername());
+                System.out.println(user);
                 userMapper.UpdateByUsername(user,username_old);
                 System.out.println("用户已更改");
                 return true;

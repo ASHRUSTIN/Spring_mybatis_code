@@ -18,5 +18,6 @@ public class User {
     private String phonenumber;
     private String emailaddress;
     private String username_old;
+    private String permission;
 }
 

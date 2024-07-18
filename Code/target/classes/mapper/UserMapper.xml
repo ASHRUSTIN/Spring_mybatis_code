@@ -3,25 +3,28 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.syq.code.mapper.UserMapper">
     <select id="FindByAll" resultMap="userResultMap">
-        select * from t_user
+        select * from t_user user left join t_euser euser on user.f_username = euser.f_username
         <where>
             <if test="username !=null and username!=''">
-                and f_username=#{username}
+                and user.f_username=#{username}
             </if>
             <if test="age !=null">
-                and  f_age= #{age}
+                and  user.f_age= #{age}
             </if>
             <if test="phonenumber !=null and phonenumber!=''">
-                and f_phonenumber=#{phonenumber}
+                and user.f_phonenumber=#{phonenumber}
             </if>
             <if test="gender !=null">
-                and f_gender=#{gender}
+                and user.f_gender=#{gender}
             </if>
             <if test="emailaddress !=null and emailaddress!=''">
-                and f_emailaddress=#{emailaddress}
+                and user.f_emailaddress=#{emailaddress}
             </if>
             <if test="password !=null">
-                and f_password=#{password}
+                and user.f_password=#{password}
+            </if>
+            <if test="user.permission !=null and user.permission!=''">
+                and euser.f_permission=#{user.permission}
             </if>
         </where>
     </select>
@@ -42,30 +45,33 @@
         </if>
     </select>
     <update id="UpdateByUsername">
-        update t_user
+        update t_user user left join t_euser euser on user.f_username = euser.f_username
             <set>
                 <if test="user.username !=null and user.username!=''">
-                    f_username=#{user.username},
+                    user.f_username=#{user.username},
                 </if>
                 <if test="user.password !=null and user.password !=''">
-                    f_password=#{user.password},
+                    user.f_password=#{user.password},
                 </if>
                 <if test="user.age !=null">
-                    f_age=#{user1.age},
+                    user.=#{user1.age},
                 </if>
                 <if test="user.gender !=null">
-                    f_gender=#{user.gender},
+                    user.f_gender=#{user.gender},
                 </if>
                 <if test="user.phonenumber !=null and user.phonenumber !=''">
-                    f_phonenumber=#{user1.phonenumber},
+                    user.f_phonenumber=#{user1.phonenumber},
                 </if>
                 <if test="user.emailaddress !=null and user.emailaddress !=''">
-                    f_emailaddress=#{user.emailaddress},
+                    user.f_emailaddress=#{user.emailaddress},
+                </if>
+                <if test="user.permission !=null and user.permission !=''">
+                    euser.f_permission=#{user.permission},
                 </if>
              </set>
             <where>
-                <if test="username_old!=null and username_old!=''">
-                    and f_username=#{username_old}
+                <if test="user.username_old!=null and user.username_old!=''">
+                    and user.f_username=#{user.username_old}
                 </if>
             </where>
     </update>
@@ -78,5 +84,6 @@
         <result column="f_gender" property="gender"></result>
         <result column="f_emailaddress" property="emailaddress"></result>
         <result column="f_password" property="password"></result>
+        <result column="f_permission" property="permission"></result>
     </resultMap>
 </mapper>
