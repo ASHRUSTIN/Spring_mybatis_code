@@ -1,0 +1,19 @@
+# ???8080
+server:
+  port: 8080
+
+spring:
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/market?characterEncoding=utf-8&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true&allowPublicKeyRetrieval=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    thymeleaf:
+      prefix: classpath:/templates
+      suffix: .html
+      mode: HTML
+      cache: false
+
+
+mybatis:
+  mapperLocations: classpath*:mapper/*Mapper.xml
